@@ -33,7 +33,6 @@ jobs:
           echo "LOCALSTACK_HOSTNAME=localhost" >> $GITHUB_ENV
           echo "S3_HOSTNAME=localhost" >> $GITHUB_ENV
           echo "TERRAGRUNT_TFPATH=tflocal" >> $GITHUB_ENV
-          echo $GITHUB_ENV
 
       - name: Install aqua
         uses: aquaproj/aqua-installer@v2.0.2
@@ -43,6 +42,7 @@ jobs:
 
       - name: Install tflocal
         run: |
+          printenv
           TFLOCAL_VERSION=0.6
           pip3 install terraform-local==${TFLOCAL_VERSION}
 
