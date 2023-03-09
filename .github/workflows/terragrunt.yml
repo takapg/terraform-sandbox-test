@@ -36,6 +36,7 @@ jobs:
           echo "S3_HOSTNAME=localhost" >> $GITHUB_ENV
           # Terragrunt
           echo "TERRAGRUNT_TFPATH=tflocal" >> $GITHUB_ENV
+          printenv | grep AWS
 
       - name: Install aqua
         uses: aquaproj/aqua-installer@v2.0.2
