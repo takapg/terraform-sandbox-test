@@ -33,6 +33,7 @@ jobs:
           echo "LOCALSTACK_HOSTNAME=localhost" >> $GITHUB_ENV
           echo "S3_HOSTNAME=localhost" >> $GITHUB_ENV
           echo "TERRAGRUNT_TFPATH=tflocal" >> $GITHUB_ENV
+          echo $GITHUB_ENV
 
       - name: Install aqua
         uses: aquaproj/aqua-installer@v2.0.2
@@ -50,7 +51,7 @@ jobs:
           docker compose up -d localstack
 
           BUCKET_NAME=localstack-tfstate
-          alias aws="aws --endpoint-url http://localstack:4566"
+          alias aws="aws --endpoint-url http://localhost:4566"
 
           aws s3api create-bucket \
             --bucket ${BUCKET_NAME} \
