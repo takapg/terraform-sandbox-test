@@ -16,7 +16,7 @@ services:
 
   work:
     build:
-      context: "./containers/work"
+      context: "."
       dockerfile: Dockerfile
     environment:
       # AWS CLI
