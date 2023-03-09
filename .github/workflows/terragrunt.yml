@@ -47,6 +47,22 @@ jobs:
         run: |
           docker compose up -d localstack
 
+      - name: Check container status
+        run: |
+          count=0
+          while [ $(docker inspect --format='{{json .State.Health}}' terraform-sandbox-test-localstack-1 | jq '.Status == "healthy"') != "true" ];
+          do
+            count=$(($count + 1))
+            echo "waiting..."
+            sleep 5
+            if [ $count == 10 ]; then
+              echo "Check container status timeout"
+              exit 1
+            fi
+          done
+
+      - name: Setup LocalStack
+        run: |
           shopt -s expand_aliases
           alias aws="aws --endpoint-url http://localhost:4566"
           BUCKET_NAME=localstack-tfstate
