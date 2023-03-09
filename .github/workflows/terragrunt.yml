@@ -1,0 +1,28 @@
+name: terragrunt
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  manual_run:
+    if: github.event_name == 'issue_comment' &&
+          contains(github.event.comment.html_url, '/pull/') && 
+          startsWith(github.event.comment.body, '/run') )
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: "Get branch name and sha"
+      id: get_branch
+      run: |
+        PR=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" ${{ github.event.issue.pull_request.url }})
+        echo "::set-output name=branch::$(echo $PR | jq -r '.head.ref')"
+        echo "::set-output name=sha::$(echo $PR | jq -r '.head.sha')"
+
+    - name: "Checkout"
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ steps.get_branch.outputs.branch }}
+
+    - run: |
+      echo "デプロイを開始しました (${{ github.event.comment.body }})"
