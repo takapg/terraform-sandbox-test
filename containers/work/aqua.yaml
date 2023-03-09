@@ -1,0 +1,20 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+# checksum:
+#   # https://aquaproj.github.io/docs/reference/checksum/
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+- type: standard
+  ref: v3.140.0 # renovate: depName=aquaproj/aqua-registry
+packages:
+- name: aws/aws-cli@2.11.0
+- name: tfutils/tfenv@v3.0.0
+- name: minamijoyo/tfmigrate@v0.3.10
+- name: gruntwork-io/terragrunt@v0.44.4
+- name: suzuki-shunsuke/tfcmt@v4.2.0
+- name: minamijoyo/hcledit@v0.2.6
+- name: shellspec/shellspec@0.28.1

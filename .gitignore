@@ -1,8 +1,11 @@
 # General
 .DS_Store
 
+# LocalStack volume
+volume
+
 # Local .terraform directories
-**/.terraform/*
+.terraform
 
 # .tfstate files
 *.tfstate
@@ -18,3 +21,6 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
+
+# Generated files by Terragrunt
+_*.tf

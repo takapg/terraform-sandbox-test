@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  localstack:
+    image: localstack/localstack:1.4.0
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    environment:
+      - DEBUG=${DEBUG-}
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  work:
+    build:
+      context: "./containers/work"
+      dockerfile: Dockerfile
+    environment:
+      # AWS CLI
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+      - AWS_DEFAULT_REGION=ap-northeast-1
+      # LocalStack
+      - LOCALSTACK_HOSTNAME=localstack
+      - S3_HOSTNAME=localstack
+      # tfmigrate
+      - TFMIGRATE_EXEC_PATH=tflocal
+      # Terragrunt
+      - TERRAGRUNT_TFPATH=tflocal
+    volumes:
+      - "./sandbox:/work/sandbox"
+    working_dir: /work/sandbox
+    tty: true
