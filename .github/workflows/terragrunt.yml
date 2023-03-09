@@ -32,17 +32,6 @@ jobs:
           echo "AWS_DEFAULT_REGION=ap-northeast-1" >> $GITHUB_ENV
           echo "TERRAGRUNT_TFPATH=tflocal" >> $GITHUB_ENV
 
-      - name: Install aqua
-        uses: aquaproj/aqua-installer@v2.0.2
-        with:
-          aqua_version: v1.35.0
-          aqua_opts: "-l"
-
-      - name: Install tflocal
-        run: |
-          TFLOCAL_VERSION=0.6
-          pip3 install terraform-local==${TFLOCAL_VERSION}
-
       - name: Start Docker
         run: |
           docker compose up -d
@@ -67,6 +56,6 @@ jobs:
 
       - name: Run
         run: |
-          docker compose exec work bash -c 'aws s3 ls'
+          docker compose exec work bash -c 'aws s3 ls --endpoint-url http://${LOCALSTACK_HOSTNAME}:4566'
           docker compose exec -w /work/sandbox/envs/dev work bash -c 'terragrunt run-all init'
           docker compose exec -w /work/sandbox/envs/dev work bash -c 'terragrunt run-all plan'
