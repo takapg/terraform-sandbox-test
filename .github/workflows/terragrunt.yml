@@ -12,17 +12,6 @@ jobs:
     #       startsWith(github.event.comment.body, '/run')
     runs-on: ubuntu-latest
 
-    env:
-      # AWS CLI
-      AWS_ACCESS_KEY_ID: dummy
-      AWS_SECRET_ACCESS_KEY: dummy
-      AWS_DEFAULT_REGION: ap-northeast-1
-      # LocalStack
-      LOCALSTACK_HOSTNAME: localhost
-      S3_HOSTNAME: localstack
-      # Terragrunt
-      TERRAGRUNT_TFPATH: tflocal
-
     steps:
       # - name: Get branch name and sha
       #   id: get_branch
@@ -35,6 +24,18 @@ jobs:
         uses: actions/checkout@v3
         # with:
         #   ref: ${{ steps.get_branch.outputs.branch }}
+
+      - name: Set env
+        run: |
+          # AWS CLI
+          echo "AWS_ACCESS_KEY_ID=dummy" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=dummy" >> $GITHUB_ENV
+          echo "AWS_DEFAULT_REGION=ap-northeast-1" >> $GITHUB_ENV
+          # LocalStack
+          echo "LOCALSTACK_HOSTNAME=localhost" >> $GITHUB_ENV
+          echo "S3_HOSTNAME=localhost" >> $GITHUB_ENV
+          # Terragrunt
+          echo "TERRAGRUNT_TFPATH=tflocal" >> $GITHUB_ENV
 
       - name: Install aqua
         uses: aquaproj/aqua-installer@v2.0.2
@@ -72,4 +73,5 @@ jobs:
 
       - name: Run
         run: |
-          terragrunt --version
+          cd sandbox/envs/dev
+          terragrunt run-all plan
