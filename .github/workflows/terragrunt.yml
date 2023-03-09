@@ -27,3 +27,4 @@ jobs:
     - name: "Run"
       run: |
         echo "デプロイを開始しました (${{ github.event.comment.body }})"
+        git branch
