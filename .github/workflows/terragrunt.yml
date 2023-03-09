@@ -93,4 +93,5 @@ jobs:
           aws s3 ls
 
           cd sandbox/envs/dev
+          terragrunt run-all init
           terragrunt run-all plan
