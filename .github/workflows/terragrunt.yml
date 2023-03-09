@@ -88,5 +88,9 @@ jobs:
 
       - name: Run
         run: |
+          shopt -s expand_aliases
+          alias aws="aws --endpoint-url http://localhost:4566"
+          aws s3 ls
+
           cd sandbox/envs/dev
           terragrunt run-all plan
