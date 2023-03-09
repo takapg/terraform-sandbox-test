@@ -51,6 +51,8 @@ jobs:
           alias aws="aws --endpoint-url http://localhost:4566"
           BUCKET_NAME=localstack-tfstate
 
+          curl http://localhost:4566/health
+
           aws s3api create-bucket \
             --bucket ${BUCKET_NAME} \
             --create-bucket-configuration LocationConstraint=ap-northeast-1
