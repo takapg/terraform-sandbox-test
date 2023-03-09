@@ -8,7 +8,7 @@ jobs:
   manual_run:
     if: github.event_name == 'issue_comment' &&
           contains(github.event.comment.html_url, '/pull/') && 
-          startsWith(github.event.comment.body, '/run') )
+          startsWith(github.event.comment.body, '/run')
     runs-on: ubuntu-latest
 
     steps:
@@ -27,3 +27,4 @@ jobs:
     - name: "Run"
       run: |
         echo "デプロイを開始しました (${{ github.event.comment.body }})"
+        git branch
