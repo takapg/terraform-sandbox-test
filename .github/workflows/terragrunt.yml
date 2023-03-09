@@ -23,6 +23,5 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{ steps.get_branch.outputs.branch }}
-
-    - run: |
+      run: |
       echo "デプロイを開始しました (${{ github.event.comment.body }})"
