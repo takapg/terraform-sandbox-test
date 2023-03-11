@@ -66,3 +66,9 @@ provider "aws" {
 EOF
 }
 
+terraform {
+  extra_arguments "plan" {
+    commands  = ["plan"]
+    arguments = ["-lock=false"]
+  }
+}
