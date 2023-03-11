@@ -65,7 +65,7 @@ get_nth () {
 echo ${skip_switch_back}
 working_dir=$(get_nth 1 "${args[@]}")
 
-root_terragrunt_file_path="$(git rev-parse --show-toplevel)/sandbox/terragrunt.hcl"
+root_terragrunt_file_path="$(dirname $0)/../terragrunt.hcl"
 backup_root_terragrunt_file_path="${root_terragrunt_file_path}_backup"
 backend_override_file_path='tmp_backend_override.tf'
 tfstate_file_path='tmp_terraform.tfstate'
