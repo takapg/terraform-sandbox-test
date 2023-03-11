@@ -29,26 +29,10 @@ docker compose restart localstack
 
 ## In the sandbox
 
-### Make S3 bucket
+### Setup LocalStack (Make S3 bucket)
 
 ```bash
-BUCKET_NAME=localstack-tfstate
-
-aws s3api create-bucket \
-    --bucket ${BUCKET_NAME} \
-    --create-bucket-configuration LocationConstraint=ap-northeast-1
-
-aws s3api put-bucket-versioning \
-    --bucket ${BUCKET_NAME} \
-    --versioning-configuration Status=Enabled
-
-aws s3api put-public-access-block \
-    --bucket ${BUCKET_NAME} \
-    --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
-
-aws s3api put-bucket-encryption \
-    --bucket ${BUCKET_NAME} \
-    --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
+./sandbox/scripts/setup_localstack.sh 
 ```
 
 ### Run

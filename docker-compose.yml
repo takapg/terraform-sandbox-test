@@ -31,6 +31,5 @@ services:
       # Terragrunt
       - TERRAGRUNT_TFPATH=tflocal
     volumes:
-      - "./sandbox:/work/sandbox"
-    working_dir: /work/sandbox
+      - "./:/work/"
     tty: true

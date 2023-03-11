@@ -1,9 +1,10 @@
 name: terragrunt
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   manual_run:
@@ -52,7 +53,7 @@ jobs:
 
       - name: Setup LocalStack
         run: |
-          docker compose exec work ./scripts/setup_localstack.sh
+          docker compose exec work ./sandbox/scripts/setup_localstack.sh 
 
       - name: Run
         run: |
