@@ -55,8 +55,14 @@ jobs:
         run: |
           docker compose exec work ./sandbox/scripts/setup_localstack.sh
 
-      - name: Run
+      - name: Init all
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: docker compose exec -w /work/sandbox/envs/dev work bash -c 'terragrunt run-all init'
+          retry_on_exit_code: 126
+
+      - name: Plan all
         run: |
-          docker compose exec work bash -c 'aws s3 ls --endpoint-url http://${LOCALSTACK_HOSTNAME}:4566'
-          docker compose exec -w /work/sandbox/envs/dev work bash -c 'terragrunt run-all init'
           docker compose exec work ./sandbox/scripts/terragrunt_plan_all_with_planned_outputs.sh /work/sandbox/envs/dev --skip-switch-back

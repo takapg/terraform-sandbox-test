@@ -72,7 +72,3 @@ terraform {
     arguments = ["-lock=false"]
   }
 }
-
-retryable_errors = [
-  "(?s).*exit status 126.*"
-]
