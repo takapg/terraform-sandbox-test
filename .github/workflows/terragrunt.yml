@@ -58,4 +58,5 @@ jobs:
       - name: Run
         run: |
           docker compose exec work bash -c 'aws s3 ls --endpoint-url http://${LOCALSTACK_HOSTNAME}:4566'
+          docker compose exec -w /work/sandbox/envs/dev work bash -c 'terragrunt run-all init'
           docker compose exec work ./sandbox/scripts/terragrunt_plan_all_with_planned_outputs.sh /work/sandbox/envs/dev --skip-switch-back
