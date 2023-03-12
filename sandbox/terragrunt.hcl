@@ -74,5 +74,5 @@ terraform {
 }
 
 retryable_errors = [
-  "(?s).*exit code 126.*"
+  "(?s).*exit status 126.*"
 ]
