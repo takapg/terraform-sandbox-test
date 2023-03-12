@@ -72,3 +72,7 @@ terraform {
     arguments = ["-lock=false"]
   }
 }
+
+retryable_errors = [
+  "(?s).*exit code 126.*"
+]
